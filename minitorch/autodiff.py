@@ -67,9 +67,10 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
 
     def dfs(v: Variable):
         used.add(v.unique_id)
-        for u in v.parents:
-            if u.unique_id not in used:
-                dfs(u)
+        if not v.is_leaf():
+            for u in v.parents:
+                if u.unique_id not in used:
+                    dfs(u)
         topsort.append(v)
 
     dfs(variable)
